@@ -1,0 +1,42 @@
+{
+    "scheduling": {
+        "startDate": "28-06-2022",
+        "endDate": "28-06-2022",
+        "reasonCode": "",
+        "payrollStatus": ""
+    },
+
+    "holiday": {
+        "date": "01/07/2022",
+        "baseOne": "AAG",
+        "baseTwo": "AAI",
+        "description": "Teste Holiday",
+        "dateChange": "02/07/2022",
+        "descriptionChange": "Teste Holiday Change"
+    },
+
+    "mail":{
+        "description": "testeFrontCypress@teste.com",
+        "descriptionChange": "testeFrontChange@teste.com"
+    },
+    
+    "allowedActivitie": {
+        "column": "AUTOMATION TST",
+        "codeOne": "ABA",
+        "codeTwo": "ADM",
+        "pages": "20",
+        "codeInclude": "ADC"
+    },
+    
+    "deniedActivitie": {
+        "name": "CODE TST",
+        "codeOne": "AA",
+        "codeTwo": "AS",
+        "codeInclude": "AR"
+    },
+    "penalty": {
+        "code": "TST"
+    }
+
+}
+
