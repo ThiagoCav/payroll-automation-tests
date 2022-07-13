@@ -2,9 +2,8 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-    // setupNodeEvents(on, config) {
-    //   // implement node event listeners here
-    // },
+    projectId: "rd34fi",
     baseUrl: 'http://localhost:46096/api/v1/'
+    
   },
 });
