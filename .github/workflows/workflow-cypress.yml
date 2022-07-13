@@ -17,12 +17,14 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           install-command: yarn install
-          wait-on: ${{ secrets.BASE_URL }}
-          wait-on-timeout: 120
+          start: npm run build:serve
+          wait-on: 'http://localhost:4200'
+          wait-on-timeout: 500
           browser: chrome
           record: true
           group: 'UI - Chrome'
           spec: cypress/e2e/*
+          config: 'baseUrl=http://localhost:4200'
           config-file: cypress.config.js
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
