@@ -54,7 +54,7 @@ Cypress.Commands.add('getHolidaysForId', () => {
     cy.request({
         method: 'GET',
         //headers: { Authorization: `JWT ${token}` },
-        url: '/holiday',
+        url: 'http://localhost:46096/api/v1/holiday',
     }).then(res => {
         const arr = res.body.data.holidays.data.find(o => o.iata === holiday.iata).holidays; // Obtenho dentro do array data, a iata de nome AAX e acesso os holidays
         const ids = arr.map(object => {
@@ -72,7 +72,7 @@ Cypress.Commands.add('getEmailForId', () => {
     cy.request({
         method: 'GET',
         //headers: { Authorization: `JWT ${token}` },
-        url: '/mail',
+        url: 'http://localhost:46096/api/v1/mail',
     }).then(res => {
         const arr = res.body.data.mailAddresses
         const ids = arr.map(object => {
@@ -91,7 +91,7 @@ Cypress.Commands.add('getAllowedActivitiesForId', () => {
     cy.request({
         method: 'GET',
         //headers: { Authorization: `JWT ${token}` },
-        url: '/allowedActivities',
+        url: 'http://localhost:46096/api/v1/allowedActivities',
     }).then(res => {
 
         const arr = res.body.data.allowedActivities.find(o => o.columnName === allowed_activitie.column_name).id
@@ -105,7 +105,7 @@ Cypress.Commands.add('getDeniedActivitiesForId', () => {
     cy.request({
         method: 'GET',
         //headers: { Authorization: `JWT ${token}` },
-        url: '/deniedActivities',
+        url: 'http://localhost:46096/api/v1/deniedActivities',
     }).then(res => {
         //console.log(res)
         const arr = res.body.data.deniedActivities.find(o => o.name === denied_activitie_atribute.name).id
@@ -119,7 +119,7 @@ Cypress.Commands.add('getPayRollLogForId', () => {
     cy.request({
         method: 'GET',
         //headers: { Authorization: `JWT ${token}` },
-        url: '/payrollLog',
+        url: 'http://localhost:46096/api/v1/payrollLog',
     }).then(res => {
         // console.log(res)
         const scheduledId = res.body.data.payrollLogs.data.payrollLogs
@@ -132,7 +132,7 @@ Cypress.Commands.add('getPayRollLogForId', () => {
 Cypress.Commands.add('putStatusPayroll', () =>{
     cy.request({
         method: 'GET',
-        url: '/payrollLog',
+        url: 'http://localhost:46096/api/v1/payrollLog',
     }).then(res => {
         const scheduledId = res.body.data.payrollLogs.data.payrollLogs
         .find(o => o.startDate === scheduling_atribute.startDate && o.endDate === scheduling_atribute.endDate).id

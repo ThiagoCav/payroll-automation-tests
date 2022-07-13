@@ -22,7 +22,7 @@ describe('should test backend from PayRoll', () => {
         it('should test method POST', () => {
             cy.request({
                 method: 'POST',
-                url: '/payrollLog',
+                url: 'http://localhost:46096/api/v1/payrollLog',
                 body: {
                     payrollLog: {
                         startDate: scheduling_atribute.startDate,
@@ -43,7 +43,7 @@ describe('should test backend from PayRoll', () => {
         it('should test method GET', () => {
             cy.request({
                 method: 'GET',
-                url: '/payrollLog'
+                url: 'http://localhost:46096/api/v1/payrollLog'
             }).then(res => {
                 console.log(res)
                 expect(res.status).be.eq(200)
@@ -56,7 +56,7 @@ describe('should test backend from PayRoll', () => {
                 console.log(scheduledId)
                 cy.request({
                     method: 'DELETE',
-                    url: `/payrollLog/${scheduledId}`
+                    url: `http://localhost:46096/api/v1/payrollLog/${scheduledId}`
                 }).then(res =>{
                     expect(res.status).be.eq(200)
                 })
@@ -70,7 +70,7 @@ describe('should test backend from PayRoll', () => {
 
             cy.request({
                 method: 'POST',
-                url: '/holiday',
+                url: 'http://localhost:46096/api/v1/holiday',
 
                 body: {
                     holidays: [
@@ -95,7 +95,7 @@ describe('should test backend from PayRoll', () => {
         it('should test method GET', () => {
             cy.request({
                 method: 'GET',
-                url: '/holiday',
+                url: 'http://localhost:46096/api/v1/holiday',
 
             }).as('response')
 
@@ -111,7 +111,7 @@ describe('should test backend from PayRoll', () => {
                 //console.log(getID)
                 cy.request({
                     method: 'PUT',
-                    url: '/holiday', 
+                    url: 'http://localhost:46096/api/v1/holiday', 
                     body: {
                         holidays: [
                             {
@@ -134,7 +134,7 @@ describe('should test backend from PayRoll', () => {
             cy.getHolidaysForId().then(getID => {
                 cy.request({
                     method: 'DELETE',
-                    url: `/holiday/${getID}`,
+                    url: `http://localhost:46096/api/v1/holiday/${getID}`,
                 })
             }).as('response')
 
@@ -150,7 +150,7 @@ describe('should test backend from PayRoll', () => {
         it('should test method POST', () => {
             cy.request({
                 method: 'POST',
-                url: '/mail',
+                url: 'http://localhost:46096/api/v1/mail',
                 body: {
                     mailAddress:
                     {
@@ -166,7 +166,7 @@ describe('should test backend from PayRoll', () => {
         it('should test method GET', () => {
             cy.request({
                 method: 'GET',
-                url: '/mail'
+                url: 'http://localhost:46096/api/v1/mail'
             }).as('response').then(res => {
                 //console.log(res)
                 expect(res.status).be.eq(200)
@@ -179,7 +179,7 @@ describe('should test backend from PayRoll', () => {
                 //console.log(getIdEmail)
                 cy.request({
                     method: 'DELETE',
-                    url: `/mail/${getIdEmail}`,
+                    url: `http://localhost:46096/api/v1/mail/${getIdEmail}`,
                 })
             }).as('response').then(res => {
                 expect(res.status).be.eq(200)
@@ -213,7 +213,7 @@ describe('should test backend from PayRoll', () => {
         it('should test method POST', () => {
             cy.request({
                 method: 'POST',
-                url: '/allowedActivities',
+                url: 'http://localhost:46096/api/v1/allowedActivities',
                 body: {
                     allowedActivities: [
                         {
@@ -235,7 +235,7 @@ describe('should test backend from PayRoll', () => {
         it('should test method GET', () => {
             cy.request({
                 method: 'GET',
-                url: '/allowedActivities',
+                url: 'http://localhost:46096/api/v1/allowedActivities',
             }).as('response')
             cy.get('@response').then(res => {
                 //console.log(res)
@@ -250,7 +250,7 @@ describe('should test backend from PayRoll', () => {
                 //console.log(AllowedActId)
                 cy.request({
                     method: 'PUT',
-                    url: '/allowedActivities',
+                    url: 'http://localhost:46096/api/v1/allowedActivities',
                     body: {
                         allowedActivity: {
                             id: AllowedActId,
@@ -271,7 +271,7 @@ describe('should test backend from PayRoll', () => {
             cy.getAllowedActivitiesForId().then(AllowedActId => {
                 cy.request({
                     method: 'DELETE',
-                    url: `/allowedActivities/${AllowedActId}`
+                    url: `http://localhost:46096/api/v1/allowedActivities/${AllowedActId}`
                 })
             }).as('response')
             cy.get('@response').then(res => {
@@ -283,7 +283,7 @@ describe('should test backend from PayRoll', () => {
         it('should test method GET in route /payrollColumns', () => {
             cy.request({
                 method: 'GET',
-                url: '/allowedActivities/payrollColumns',
+                url: 'http://localhost:46096/api/v1/allowedActivities/payrollColumns',
             }).as('response')
             cy.get('@response').then(res => {
                 console.log(res)
@@ -298,7 +298,7 @@ describe('should test backend from PayRoll', () => {
         it('should test method POST', () => {
             cy.request({
                 method: 'POST',
-                url: '/deniedActivities',
+                url: 'http://localhost:46096/api/v1/deniedActivities',
                 body: {
                     deniedActivities: [
                         {
@@ -318,7 +318,7 @@ describe('should test backend from PayRoll', () => {
         it('should test method GET', () => {
             cy.request({
                 method: 'GET',
-                url: '/deniedActivities'
+                url: 'http://localhost:46096/api/v1/deniedActivities'
             }).as('response')
             cy.get('@response').then(res => {
                 console.log(res)
@@ -330,7 +330,7 @@ describe('should test backend from PayRoll', () => {
         it('should test method GET in route /codes', () => {
             cy.request({
                 method: 'GET',
-                url: `/deniedActivities/codes`
+                url: `http://localhost:46096/api/v1/deniedActivities/codes`
             }).as('response')
             cy.get('@response').then(res => {
                 console.log(res)
@@ -344,7 +344,7 @@ describe('should test backend from PayRoll', () => {
                 console.log(deniedId)
                 cy.request({
                     method: 'PUT',
-                    url: '/deniedActivities',
+                    url: 'http://localhost:46096/api/v1/deniedActivities',
                     body: {
                         deniedActivity: {
                             id: deniedId,
@@ -366,7 +366,7 @@ describe('should test backend from PayRoll', () => {
             cy.getDeniedActivitiesForId().then(deniedId => {
                 cy.request({
                     method: 'DELETE',
-                    url: `/deniedActivities/${deniedId}`
+                    url: `http://localhost:46096/api/v1/deniedActivities/${deniedId}`
                 })
             }).as('response')
             cy.get('@response').then(res => {
@@ -380,7 +380,7 @@ describe('should test backend from PayRoll', () => {
         it('should test method POST', () => {
             cy.request({
                 method: 'POST',
-                url: `/penalty/code/${penalty_code.code}`,
+                url: `http://localhost:46096/api/v1/penalty/code/${penalty_code.code}`,
             }).then(res => {
                 console.log(res)
                 expect(res.status).be.eq(201)
@@ -391,7 +391,7 @@ describe('should test backend from PayRoll', () => {
         it('should test method GET', () => {
             cy.request({
                 method: 'GET',
-                url: '/penalty/code'
+                url: 'http://localhost:46096/api/v1/penalty/code'
             }).then(res => {
                 expect(res.status).be.eq(200)
                 expect(res.statusText).be.eq('OK')
@@ -402,7 +402,7 @@ describe('should test backend from PayRoll', () => {
         it('should test method DELETE', () => {
             cy.request({
                 method: 'DELETE',
-                url: `/penalty/code/${penalty_code.code}`
+                url: `http://localhost:46096/api/v1/penalty/code/${penalty_code.code}`
             }).then(res => {
                 expect(res.status).be.eq(200)
             })
