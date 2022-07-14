@@ -17,6 +17,7 @@ class emailPage {
         cy.xpath(loc.EMAIL.BTN_NEW_MAIL_XP('Novo Email')).click()
         cy.get(loc.EMAIL.MAIL_INPUT).type(data.mail.description)
         cy.get(loc.EMAIL.BTN_SAVE).click()
+        cy.wait(2000)
         cy.get(loc.MESSAGE).invoke('text')
             .then((text) => {
                 const toastText = text;

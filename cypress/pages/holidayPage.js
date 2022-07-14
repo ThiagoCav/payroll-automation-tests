@@ -40,6 +40,7 @@ class holidayPage {
         cy.get(loc.HOLIDAY.DATE_EDIT).click().clear().type(data.holiday.dateChange)
         cy.get(loc.HOLIDAY.DESCRIPTION_EDIT).click().clear().type(data.holiday.descriptionChange)
         cy.get(loc.HOLIDAY.BTN_SAVE_EDIT).click()
+        cy.wait(2000)
         cy.get(loc.MESSAGE).invoke('text')
             .then((text) => {
                 const toastText = text;
