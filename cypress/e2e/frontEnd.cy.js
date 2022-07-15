@@ -8,9 +8,9 @@ import penalty from '../pages/penaltyPage'
 
 describe('should test frontend from PayRoll', () => {
 
-    before(() => {
-        //TODO - Implementar autenticação pelo token
-        //cy.getToken('thiago.cavallari@scanbrazilconsulting.com', 'Pot.cat-42##@')
+    beforeEach(() => {
+        cy.clearCookies()
+        
     })
 
     describe('Scheduling', () => {

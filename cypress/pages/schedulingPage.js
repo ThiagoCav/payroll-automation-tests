@@ -31,14 +31,14 @@ class PayrollPage {
     schedulingDownload() {
         cy.get(loc.SCHEDULING.BTN_INSERT).click()
         cy.get(loc.SCHEDULING.BTN_BACK).click()
-        cy.get(loc.SCHEDULING.BTN_DOWNLOAD).click()
+        cy.xpath(loc.SCHEDULING.BTN_DOWNLOAD).click()
 
     }
 
     deletePayroll() {
         cy.get(loc.SCHEDULING.BTN_INSERT).click()
         cy.get(loc.SCHEDULING.BTN_BACK).click()
-        cy.get(loc.SCHEDULING.BTN_DELETE_PAYROLL).click()
+        cy.xpath(loc.SCHEDULING.BTN_DELETE_PAYROLL_XP).click()
         cy.get(loc.SCHEDULING.BTN_DELETE_PAYROLL_CONFIRM).click()
         cy.wait(2000)
         cy.get(loc.MESSAGE).invoke('text')
