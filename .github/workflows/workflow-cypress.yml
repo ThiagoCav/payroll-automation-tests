@@ -3,12 +3,10 @@ name: Payroll Regression Tests
 on: [push]
 
 jobs:
- 
 
   ui-chrome-tests:
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.17.0-chrome88-ff89
-    needs: install
     strategy:
       fail-fast: false
     steps:
