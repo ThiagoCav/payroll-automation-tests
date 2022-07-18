@@ -4,7 +4,9 @@
   "description": "Projeto de testes do site Payroll",
   "main": "index.js",
   "scripts": {
-    "test": "npx cypress open"
+    "test": "npx cypress open",
+    "dev": "webpack --config=Scripts/config/webpack.dev.js --watch",
+    "build": "webpack --config=Scripts/config/webpack.prod.js"
   },
   "keywords": [
     "payroll"
