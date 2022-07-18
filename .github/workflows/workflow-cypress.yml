@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   install:
+  # ...
 
   ui-chrome-tests:
     runs-on: ubuntu-latest
