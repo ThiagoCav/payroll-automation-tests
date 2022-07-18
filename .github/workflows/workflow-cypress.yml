@@ -13,18 +13,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       
-      - name: 'UI Tests - Chrome'
+      - name: 'Regression Tests Payroll - Chrome'
         uses: cypress-io/github-action@v2
         with:
           install-command: yarn install
           start: npm run build:serve
-          wait-on: 'http://localhost:4200'
+          wait-on: 'http://localhost:4200/#/home'
           wait-on-timeout: 500
           browser: chrome
           record: true
           group: 'UI - Chrome'
           spec: cypress/e2e/*
-          config: 'baseUrl=http://localhost:4200'
+          config: 'baseUrl=http://localhost:4200/#/home'
           config-file: cypress.config.js
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
