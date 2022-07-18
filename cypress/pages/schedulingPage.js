@@ -19,7 +19,7 @@ class PayrollPage {
         cy.get(loc.SCHEDULING.RADIO_BTN_PENALITY).first().check({ force: true })
         cy.get(loc.SCHEDULING.RADIO_BTN_REASON_CODE).first().check({ force: true })
         cy.get(loc.SCHEDULING.BTN_INSERT_SAVE).click()
-        cy.wait(2000)
+        cy.wait(2500)
         cy.get(loc.MESSAGE).invoke('text')
             .then((text) => {
                 const toastText = text;
@@ -40,7 +40,7 @@ class PayrollPage {
         cy.get(loc.SCHEDULING.BTN_BACK).click()
         cy.xpath(loc.SCHEDULING.BTN_DELETE_PAYROLL_XP).click()
         cy.get(loc.SCHEDULING.BTN_DELETE_PAYROLL_CONFIRM).click()
-        cy.wait(2000)
+        cy.wait(2500)
         cy.get(loc.MESSAGE).invoke('text')
             .then((text) => {
                 const toastText = text;

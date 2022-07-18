@@ -26,6 +26,7 @@ class holidayPage {
         cy.get(loc.HOLIDAY.BTN_ADD).click()
         cy.get(loc.HOLIDAY.REMOVE_BASE_TWO).click()
         cy.get(loc.HOLIDAY.BTN_SAVE).click()
+        cy.wait(2500)
         cy.get(loc.MESSAGE).invoke('text')
             .then((text) => {
                 const toastText = text;
@@ -57,7 +58,7 @@ class holidayPage {
         cy.xpath(loc.HOLIDAY.REGISTERED_XP(data.holiday.baseOne)).click()
         cy.xpath(loc.HOLIDAY.BTN_REMOVE_XP(data.holiday.description, data.holiday.date)).click()
         cy.get(loc.HOLIDAY.BTN_CONFIRM_REMOVE).click()
-        cy.wait(2000)
+        cy.wait(2500)
         cy.get(loc.MESSAGE).invoke('text')
             .then((text) => {
                 const toastText = text;

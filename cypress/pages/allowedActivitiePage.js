@@ -20,7 +20,7 @@ class allowedActivitie {
         cy.get(loc.ALLOWED_ACTIVITIE.COMBO_CODE).click()
         cy.xpath(loc.ALLOWED_ACTIVITIE.CODE_ONE_XP(data.allowedActivitie.codeOne)).click()
         cy.xpath(loc.ALLOWED_ACTIVITIE.CODE_TWO_XP(data.allowedActivitie.codeTwo)).click()
-        cy.get(loc.ALLOWED_ACTIVITIE.CLICK_RANDOM).dblclick()
+        cy.get(loc.ALLOWED_ACTIVITIE.CLICK_RANDOM).dblclick({ force: true })
         cy.xpath(loc.ALLOWED_ACTIVITIE.BTN_ADD_XP).click()
         cy.xpath(loc.ALLOWED_ACTIVITIE.BTN_SAVE_XP).click()
     }
