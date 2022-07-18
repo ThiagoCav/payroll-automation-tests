@@ -4,7 +4,9 @@
   "description": "Projeto de testes do site Payroll",
   "main": "index.js",
   "scripts": {
-    "test": "npx cypress open",
+    "start": "my-server -p 4200",
+    "cy:run": "cypress run",
+    "test": "npx cypress open start http://localhost:4200 cy:run",
     "dev": "webpack --config=Scripts/config/webpack.dev.js --watch",
     "build": "webpack --config=Scripts/config/webpack.prod.js"
   },
