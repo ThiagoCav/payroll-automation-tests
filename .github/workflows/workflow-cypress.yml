@@ -3,10 +3,12 @@ name: Payroll Regression Tests
 on: [push]
 
 jobs:
+  install:
 
   ui-chrome-tests:
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.17.0-chrome88-ff89
+    needs: install
     strategy:
       fail-fast: false
     steps:
@@ -14,10 +16,10 @@ jobs:
         uses: actions/checkout@v2
       
       - name: 'UI Tests - Chrome'
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v4
         with:
           install-command: yarn install
-          wait-on: ${{ secrets.BASE_URL }}
+          wait-on: 'http://localhost:4200'
           wait-on-timeout: 120
           browser: chrome
           record: true
