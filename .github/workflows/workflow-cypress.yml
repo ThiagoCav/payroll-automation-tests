@@ -17,7 +17,7 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           install-command: yarn install
-          wait-on: 'http://localhost:4200'
+          wait-on: 'http://127.0.0.1:4200/#/home'
           wait-on-timeout: 120
           browser: chrome
           record: true
