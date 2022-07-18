@@ -6,7 +6,7 @@
   "scripts": {
     "start": "my-server -p 4200",
     "cy:run": "npx cypress run",
-    "test": "start-server-and-test start http://localhost:4200 cy:run"
+    "test": "start-server-and-test start http://127.0.0.1:4200/#/home cy:run"
   },
   "keywords": [
     "payroll"
