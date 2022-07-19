@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx cypress run",
+    "build": "tsc",
     "dev": "concurrently --kill-others \"npx cypress run start-watch\" \"npx cypress run wp-server\""
   },
   "keywords": [
