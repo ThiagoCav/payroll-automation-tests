@@ -4,10 +4,8 @@
   "description": "Projeto de testes do site Payroll",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --open --config webpack/webpack.config.dev.js",
     "test": "npx cypress run",
-    "server": "webpack-dashboard -- webpack-dev-server --inline --port 4200",
-      "webdriver-update": "webdriver-manager update"
+    "dev": "concurrently --kill-others \"npx cypress run start-watch\" \"npx cypress run wp-server\""
   },
   "keywords": [
     "payroll"
@@ -15,6 +13,7 @@
   "author": "Thiago Cavallari",
   "license": "MIT",
   "devDependencies": {
+    "concurrently": "^7.3.0",
     "cypress": "^10.1.0",
     "cypress-xpath": "^2.0.0",
     "start-server-and-test": "^1.14.0"
