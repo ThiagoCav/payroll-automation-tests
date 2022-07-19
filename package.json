@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "my-server -p 4200",
-    "cy:run": "npx cypress run",
-    "test": "start-server-and-test start http://127.0.0.1:4200/#/home cy:run"
+    "test": "npx cypress run"
   },
   "keywords": [
     "payroll"
@@ -15,7 +14,6 @@
   "license": "MIT",
   "devDependencies": {
     "cypress": "^10.1.0",
-    "cypress-log-to-output": "^1.1.2",
     "cypress-xpath": "^2.0.0",
     "start-server-and-test": "^1.14.0"
   },
