@@ -14,7 +14,12 @@ jobs:
       - name: Cypress integration tests
         uses: cypress-io/github-action@v4.1.0
         with:
-          ##start: npm run build:serve
+          services:
+              server:
+              build: ./server
+              ports:
+                 - "4200:4200"
+          start: npm run build:serve
           wait-on: 'http://127.0.0.1:4200/#/home'
           wait-on-timeout: 500 # seconds = 6 mins
           config: 'baseUrl=http://127.0.0.1:4200/#/home'
