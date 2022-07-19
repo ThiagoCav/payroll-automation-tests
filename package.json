@@ -4,8 +4,10 @@
   "description": "Projeto de testes do site Payroll",
   "main": "index.js",
   "scripts": {
-    "start": "my-server -p 4200",
-    "test": "npx cypress run"
+    "start": "webpack-dev-server --open --config webpack/webpack.config.dev.js",
+    "test": "npx cypress run",
+    "server": "webpack-dashboard -- webpack-dev-server --inline --port 4200",
+      "webdriver-update": "webdriver-manager update"
   },
   "keywords": [
     "payroll"
