@@ -57,6 +57,8 @@ jobs:
         npx cypress version --component node
     # Starts local server, then runs Cypress tests and records results on the dashboard
     - name: Cypress tests
+      with: 
+        wait-on: npm start & wait-on http://127.0.0.1:4200/#/home
       run: npx cypress run
       env:
         # place your secret record key at
