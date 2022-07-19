@@ -18,7 +18,7 @@ jobs:
         with:
           install-command: yarn install
           wait-on: 'http://127.0.0.1:4200/#/home'
-          wait-on-timeout: 120
+          wait-on-timeout: 30
           browser: chrome
           record: true
           group: 'UI - Chrome'

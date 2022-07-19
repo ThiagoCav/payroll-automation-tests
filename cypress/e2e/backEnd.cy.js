@@ -3,7 +3,7 @@ import dataFactory from '../factories/dataFactory'
 
 //import dayjs from 'dayjs'
 
-describe('should test backend from PayRoll', () => {
+describe.skip('should test backend from PayRoll', () => {
 
     var holiday_atribute = dataFactory.holiday()
     var mail_atribute = dataFactory.mail()
