@@ -1,93 +1,39 @@
-# GitHub Actions
-# https://help.github.com/en/articles/configuring-a-workflow
-name: Cypress tests
-
-on: push
-
+name: integrations tests
+on: [push]
 jobs:
-  test1:
-    name: Cypress test
-    runs-on: ubuntu-18.04
+
+  smoke:
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@main
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup node 16.13.2
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.13.2
+      - name: Cypress integration tests
+        uses: cypress-io/github-action@v4.1.0
+        with:
+          start: npm run build:serve
+          wait-on: 'http://127.0.0.1:4200/#/home'
+          wait-on-timeout: 500 # seconds = 6 mins
+          config: 'baseUrl=http://127.0.0.1:4200/#/home'
 
-    # install a specific version of Node using
-    # https://github.com/actions/setup-node
-    - name: Use Node.js v12
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12
-
-    # just so we learn about available environment variables GitHub provides
-    - name: Print env variables
-      run: |
-        npm i -g @bahmutov/print-env
-        print-env GITHUB
-    # Restore the previous NPM modules and Cypress binary archives.
-    # Any updated archives will be saved automatically after the entire
-    # workflow successfully finishes.
-    # See https://github.com/actions/cache
-    - name: Cache node modules
-      uses: actions/cache@v1
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-    - name: Cache Cypress binary
-      uses: actions/cache@v1
-      with:
-        path: ~/.cache/Cypress
-        key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
-        restore-keys: |
-          cypress-${{ runner.os }}-cypress-
-    - name: install dependencies and verify Cypress
-      env:
-        # make sure every Cypress install prints minimal information
-        CI: 1
-      # print Cypress and OS info
-      run: |
-        npm ci
-        npx cypress verify
-        npx cypress info
-        npx cypress version
-        npx cypress version --component package
-        npx cypress version --component binary
-        npx cypress version --component electron
-        npx cypress version --component node
-    # Starts local server, then runs Cypress tests and records results on the dashboard
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    - name: Cypress tests
-      uses: cypress-io/github-action@v2
-      with:
-        install-command: yarn install
-        wait-on: ${{ secrets.BASE_URL }}
-        wait-on-timeout: 30
-        browser: google-chrome
-        record: true
-        group: 'UI - Chrome'
-        spec: cypress/e2e/*
-        run: cypress open --config-file=cypress.config.js
-      env:
-        # place your secret record key at
-        # https://github.com/cypress-io/cypress-example-kitchensink/settings/secrets
-        CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    # Save videos and screenshots as test artifacts
-    # https://github.com/actions/upload-artifact
-    - uses: actions/upload-artifact@master
-      with:
-        name: screenshots
-        path: cypress/screenshots
-        # there might be no screenshots created when:
-        # - there are no test failures
-        # so only upload screenshots if previous step has failed
-        if: failure()
-    # video should always be generated
-    - uses: actions/upload-artifact@master
-      with:
-        name: videos
-        path: cypress/videos
+  validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup node 16.13.2
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.13.2
+      - name: Cypress data validation
+        uses: cypress-io/github-action@v4.1.0
+        with:
+          env: VALIDATE_ALL=true
+          spec: cypress/e2e/zz-validate-data.cy.js
+          start: npm run build:serve:4201
+          wait-on: 'http://127.0.0.1:4201/#/home'
+          wait-on-timeout: 500 # seconds = 6 mins
+          config: 'baseUrl=http://127.0.0.1:4201/#/home'
