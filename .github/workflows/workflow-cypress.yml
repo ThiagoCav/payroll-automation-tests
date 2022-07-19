@@ -55,7 +55,6 @@ jobs:
         npx cypress version --component binary
         npx cypress version --component electron
         npx cypress version --component node
-        npx cypress open --config-file=cypress.config.js
     # Starts local server, then runs Cypress tests and records results on the dashboard
     - name: Checkout
       uses: actions/checkout@v2
@@ -66,7 +65,7 @@ jobs:
         install-command: yarn install
         wait-on: ${{ secrets.BASE_URL }}
         wait-on-timeout: 30
-        browser: chrome
+        browser: google-chrome
         record: true
         group: 'UI - Chrome'
         spec: cypress/e2e/*
