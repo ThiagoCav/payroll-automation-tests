@@ -58,17 +58,17 @@ jobs:
     # Starts local server, then runs Cypress tests and records results on the dashboard
     - name: Checkout
       uses: actions/checkout@v2
-      
+
     - name: Cypress tests
       uses: cypress-io/github-action@v2
-        with:
-          install-command: yarn install
-          wait-on: ${{ secrets.BASE_URL }}
-          wait-on-timeout: 30
-          browser: chrome
-          record: true
-          group: 'UI - Chrome'
-          spec: cypress/e2e/*
+      with:
+        install-command: yarn install
+        wait-on: ${{ secrets.BASE_URL }}
+        wait-on-timeout: 30
+        browser: chrome
+        record: true
+        group: 'UI - Chrome'
+        spec: cypress/e2e/*
       env:
         # place your secret record key at
         # https://github.com/cypress-io/cypress-example-kitchensink/settings/secrets
