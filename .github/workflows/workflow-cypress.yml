@@ -1,29 +1,33 @@
-name: Cypress Regression Tests
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-on: [push]
+name: Cypress Example CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [ main ]
 
 jobs:
+  build:
 
-  ui-chrome-tests:
     runs-on: ubuntu-latest
-    container: cypress/browsers:node14.17.0-chrome88-ff89
+
     strategy:
-      fail-fast: false
+      matrix:
+        node-version: [16]
+        # Veja a programação de lançamento do Node.js compatível em https://nodejs.org/en/about/releases/
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      
-      - name: 'UI Tests - Chrome'
-        uses: cypress-io/github-action@v2
-        with:
-          install-command: yarn install
-          # wait-on: 'http://127.0.0.1:4200/#/home'
-          # wait-on-timeout: 120
-          browser: chrome
-          record: true
-          group: 'UI - Chrome'
-          spec: cypress/e2e/*
-          config-file: cypress.config.js
-        env:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install
+    - run: npm run test
+      env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
