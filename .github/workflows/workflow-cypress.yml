@@ -1,47 +1,28 @@
-name: integrations tests
+name: Cypress Regression Tests
+
 on: [push]
+
 jobs:
 
-  smoke:
+  ui-chrome-tests:
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.17.0-chrome88-ff89
     strategy:
       fail-fast: false
- 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup node 16.13.2
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16.13.2
-      - name: Cypress integration tests
-        uses: cypress-io/github-action@v4.1.0
+      
+      - name: 'UI Tests - Chrome'
+        uses: cypress-io/github-action@v2
         with:
           install-command: yarn install
           wait-on: 'http://127.0.0.1:4200/#/home'
-          wait-on-timeout: 60 # seconds = 6 mins
-          config: 'baseUrl=http://127.0.0.1:4200/#/home'
-          spec: cypress/e2e/*
+          wait-on-timeout: 120
+          browser: chrome
+          record: true
+          group: 'UI - Chrome'
+          spec: cypress/integration/*
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  # validation:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
-  #     - name: Setup node 16.13.2
-  #       uses: actions/setup-node@v1
-  #       with:
-  #         node-version: 16.13.2
-  #     - name: Cypress data validation
-  #       uses: cypress-io/github-action@v4.1.0
-  #       with:
-  #         env: VALIDATE_ALL=true
-  #         spec: cypress/e2e/zz-validate-data.cy.js
-  #         start: npm run build:serve:4201
-  #         wait-on: 'http://127.0.0.1:4201/#/home'
-  #         wait-on-timeout: 500 # seconds = 6 mins
-  #         config: 'baseUrl=http://127.0.0.1:4201/#/home'
