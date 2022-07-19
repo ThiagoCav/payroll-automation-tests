@@ -69,11 +69,16 @@ jobs:
         record: true
         group: 'UI - Chrome'
         spec: cypress/e2e/*
+        run: cypress open --config-file=cypress.config.js
       env:
         # place your secret record key at
         # https://github.com/cypress-io/cypress-example-kitchensink/settings/secrets
         CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        npx cypress open --config-file=cypress.config.js
+
+
 
     # Save videos and screenshots as test artifacts
     # https://github.com/actions/upload-artifact
