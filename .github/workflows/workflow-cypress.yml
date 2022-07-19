@@ -4,11 +4,10 @@ jobs:
 
   smoke:
     runs-on: ubuntu-latest
-    services:
-        server:
-            build: ./server
-            ports:
-                - "4200:4200"
+    container: cypress/browsers:node14.17.0-chrome88-ff89
+    strategy:
+      fail-fast: false
+ 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -19,10 +18,11 @@ jobs:
       - name: Cypress integration tests
         uses: cypress-io/github-action@v4.1.0
         with:
-          start: npm run build:serve
+          install-command: yarn install
           wait-on: 'http://127.0.0.1:4200/#/home'
-          wait-on-timeout: 500 # seconds = 6 mins
+          wait-on-timeout: 60 # seconds = 6 mins
           config: 'baseUrl=http://127.0.0.1:4200/#/home'
+          spec: cypress/e2e/*
 
   validation:
     runs-on: ubuntu-latest
