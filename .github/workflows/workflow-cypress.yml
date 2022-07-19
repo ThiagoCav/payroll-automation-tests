@@ -55,6 +55,7 @@ jobs:
         npx cypress version --component binary
         npx cypress version --component electron
         npx cypress version --component node
+        npx cypress open --config-file=cypress.config.js
     # Starts local server, then runs Cypress tests and records results on the dashboard
     - name: Checkout
       uses: actions/checkout@v2
@@ -75,10 +76,6 @@ jobs:
         # https://github.com/cypress-io/cypress-example-kitchensink/settings/secrets
         CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        npx cypress open --config-file=cypress.config.js
-
-
 
     # Save videos and screenshots as test artifacts
     # https://github.com/actions/upload-artifact
