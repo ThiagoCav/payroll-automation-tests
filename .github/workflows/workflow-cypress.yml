@@ -1,52 +1,58 @@
-# Note: make sure to use the same version of cypress-io/github-action
-# in all jobs, otherwise the last version wins I believe
-name: Using Cypress GH Action
-
-on: push
-
+name: main
+on:
+  push:
+    branches:    
+      - 'main'
+  pull_request:
 jobs:
-  single-run:
-    runs-on: ubuntu-18.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Cypress run
-        uses: cypress-io/github-action@v4
-        timeout-minutes: 10
-        with:
-          build: npm run build
-          start: npm start
-
-  parallel-runs:
-    name: Parallel 1x
-    runs-on: ubuntu-18.04
+  build-and-test:
+    runs-on: ubuntu-20.04
     strategy:
-      # when one test fails, DO NOT cancel the other
-      # containers, because this will kill Cypress processes
-      # leaving the Dashboard hanging ...
-      # https://github.com/cypress-io/github-action/issues/48
-      fail-fast: false
       matrix:
-        # run 4 copies of the current job in parallel
-        # the actual items in the array do not matter
-        # we just need to "force" GitHub CI to create 4 jobs
-        machines: [1]
+        node: [12, 14, 16]
+    name: Test on Node v${{ matrix.node }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
-
-      # because of "record" and "parallel" parameters
-      # these containers will load balance all found tests among themselves
-      - name: run tests
-        uses: cypress-io/github-action@v4
-        timeout-minutes: 5
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
         with:
-          record: true
-          parallel: true
-          group: GH Action parallel
-          start: npm start
-        env:
-          # pass the Dashboard record key as an environment variable
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          node-version: ${{ matrix.node }}
+      - uses: bahmutov/npm-install@v1
+      - run: npm run format
+      - run: npm run build
+      - run: npm test
+      - run: npm run check:markdown
 
-  
+
+  release:
+    runs-on: ubuntu-20.04
+    name: release
+    needs: [build-and-test]
+    # only release from the master branch
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: bahmutov/npm-install@v1
+      # https://github.com/cycjimmy/semantic-release-action
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v2
+        id: semantic
+        with:
+          branch: main
+          extra_plugins: |
+            @semantic-release/git
+            @semantic-release/changelog
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GIT }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Push updates to branch for major version
+        # if there is a new version published, let's say v1.2.3
+        # then this step will update branch "v1" to this commit
+        # https://github.com/cypress-io/github-action/branches
+        if: steps.semantic.outputs.new_release_published == 'true'
+        run: 'git push https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:refs/heads/v${{steps.semantic.outputs.new_release_major_version}}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GIT }}
