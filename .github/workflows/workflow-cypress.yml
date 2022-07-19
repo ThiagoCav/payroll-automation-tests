@@ -9,6 +9,12 @@ jobs:
     container: cypress/browsers:node14.17.0-chrome88-ff89
     strategy:
       fail-fast: false
+    services: 
+    ports:
+      - "127.0.0.1:4200"
+      - "127.0.0.1:13596"
+      - "127.0.0.1:46096"
+  
     steps:
       - name: Checkout
         uses: actions/checkout@v2
