@@ -56,6 +56,9 @@ jobs:
         npx cypress version --component electron
         npx cypress version --component node
     # Starts local server, then runs Cypress tests and records results on the dashboard
+    - name: Checkout
+      uses: actions/checkout@v2
+      
     - name: Cypress tests
       uses: cypress-io/github-action@v2
         with:
