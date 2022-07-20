@@ -12,7 +12,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
-          env: host=http://api.dev.local,apiPort=46096
+          env: host=http://127.0.0.1,apiPort=46096
           spec: cypress/e2e/backEnd.cy.js
           # browser: electron
           # wait-on: 'http://localhost:46096/swagger'
