@@ -1,58 +1,29 @@
-name: main
-on:
-  push:
-    branches:    
-      - 'main'
-  pull_request:
+name: Cypress Regression Tests
+
+on: [push]
+
 jobs:
-  build-and-test:
-    runs-on: ubuntu-20.04
+ 
+  ui-chrome-tests:
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node14.17.0-chrome88-ff89
     strategy:
-      matrix:
-        node: [16]
-    name: Test on Node v${{ matrix.node }}
+      fail-fast: false
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
+      
+      - name: 'UI Tests'
+        uses: cypress-io/github-action@v2
         with:
-          node-version: ${{ matrix.node }}
-      - uses: bahmutov/npm-install@v1
-      - run: npm run format
-      - run: npm run build
-      - run: npm test
-      - run: npm run check:markdown
-
-
-  release:
-    runs-on: ubuntu-20.04
-    name: release
-    needs: [build-and-test]
-    # only release from the master branch
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - uses: bahmutov/npm-install@v1
-      # https://github.com/cycjimmy/semantic-release-action
-      - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v2
-        id: semantic
-        with:
-          branch: master
-          extra_plugins: |
-            @semantic-release/git
-            @semantic-release/changelog
+          install-command: yarn install
+          wait-on: 'http://127.0.0.1:4200/#/home'
+          wait-on-timeout: 120
+          browser: chrome
+          record: true
+          group: 'UI - Chrome'
+          spec: cypress/e2e/*
+          config-file: cypress.config.js
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GIT }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Push updates to branch for major version
-        # if there is a new version published, let's say v1.2.3
-        # then this step will update branch "v1" to this commit
-        # https://github.com/cypress-io/github-action/branches
-        if: steps.semantic.outputs.new_release_published == 'true'
-        run: 'git push https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:refs/heads/v${{steps.semantic.outputs.new_release_major_version}}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GIT }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
