@@ -13,5 +13,5 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           browser: chrome
-          wait-on: 'http://localhost:46096/swagger'
-          wait-on-timeout: 60
+          # wait-on: 'http://localhost:46096/swagger'
+          # wait-on-timeout: 60
