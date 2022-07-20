@@ -16,5 +16,5 @@ jobs:
           spec: cypress/e2e/backEnd.cy.js
           # browser: electron
           wait-on: 'http://localhost:4200/#/home, http://localhost:46096, http://localhost:13596'
-          # wait-on-timeout: 60
-          timeout-minutes: 5
+          wait-on-timeout: 5000
+          
