@@ -1,29 +1,13 @@
-name: Cypress Regression Tests
-
+name: Component Tests
 on: [push]
-
 jobs:
- 
-  ui-chrome-tests:
+  cypress-run:
     runs-on: ubuntu-latest
-    container: cypress/browsers:node14.17.0-chrome88-ff89
-    strategy:
-      fail-fast: false
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      
-      - name: 'UI Tests'
-        uses: cypress-io/github-action@v2
+      - name: Cypress run
+        uses: cypress-io/github-action@v4
         with:
-          #install-command: yarn install
-          #wait-on: 'http://127.0.0.1:4200/#/home'
-          #wait-on-timeout: 120
-          browser: chrome
-          record: true
-          group: 'UI - Chrome'
-          spec: cypress/e2e/*
-          config-file: cypress.config.js
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          working-directory: examples/v10/component-tests
+          component: true
