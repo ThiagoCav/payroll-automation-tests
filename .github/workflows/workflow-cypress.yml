@@ -12,8 +12,9 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
-          env: host=http://127.0.0.1,apiPort=46096
+          # env: host=http://127.0.0.1,apiPort=46096
           spec: cypress/e2e/backEnd.cy.js
           # browser: electron
-          # wait-on: 'http://localhost:46096/swagger'
+          wait-on: 'http://localhost:4200/#/home, http://localhost:46096, http://localhost:13596'
           # wait-on-timeout: 60
+          timeout-minutes: 5
