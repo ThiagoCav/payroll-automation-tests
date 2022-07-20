@@ -4,7 +4,8 @@
   "description": "Projeto de testes do site Payroll",
   "main": "index.js",
   "scripts": {
-    "test": "npx cypress run"
+    "test": "npx cypress run",
+    "int-test": "start-server-and-test http://localhost:46096 test"
   },
   "keywords": [
     "payroll"
