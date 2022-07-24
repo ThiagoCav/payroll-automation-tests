@@ -51,7 +51,7 @@ describe('should test backend from PayRoll', () => {
             })
         })
 
-        it('should test method DELETE', () => { 
+        it.only('should test method DELETE', () => { 
             cy.getPayRollLogForId().then(scheduledId => {
                 console.log(scheduledId)
                 cy.request({

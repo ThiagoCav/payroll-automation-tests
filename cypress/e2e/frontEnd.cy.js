@@ -13,7 +13,7 @@ describe('should test frontend from PayRoll', () => {
         
     })
 
-    describe('Scheduling', () => {
+    describe.only('Scheduling', () => {
 
         it('should registration Scheduling', () => {
             scheduling.go()

@@ -25,7 +25,6 @@ class PayrollPage {
                 const toastText = text;
                 expect(toastText).to.equal(" Agendamento cadastrado com sucesso! ");
             })
-
     }
 
     schedulingDownload() {
